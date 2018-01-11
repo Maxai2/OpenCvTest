@@ -677,3 +677,6 @@ int main(int argc, char* argv[])
 }
 
 ////--------------------------------------
+
+#include <cv.h>
+#include <highgui.h>
