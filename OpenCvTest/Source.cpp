@@ -767,16 +767,240 @@
 
 ////--------------------------------------
 
+//#include <cv.h>
+//#include <highgui.h>
+//#include <stdlib.h>
+//#include <stdio.h>
+//
+//IplImage* image = 0;
+//IplImage* dst = 0;
+//
+//int radius = 1;
+//int radius_max = 10;
+//
+////
+//// функция-обработчик ползунка -
+//// радиус ядра
+//void myTrackbarRadius(int pos) { radius = pos; }
+//
+//int iterations = 1;
+//int iterations_max = 10;
+//
+////
+//// функция-обработчика ползунка - 
+//// число итераций
+//void myTrackbarIterations(int pos) { iterations = pos; }
+//
+//int main(int argc, char* argv[])
+//{
+//	// имя картинки задается первым
+//	const char* filename = argc == 2 ? argv[1] : "cat.jpg";
+//
+//	char windowName[] = "original";
+//	char morpholohyWindow[] = "morphology";
+//
+//	// получаем картинку
+//	image = cvLoadImage(filename, 1);
+//	// клонируем картинку
+//	dst = cvCloneImage(image);
+//
+//	printf("[i] image: %s\n", filename);
+//	assert(image != 0);
+//
+//	// окно для отображения картинки
+//	cvNamedWindow(windowName, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(morpholohyWindow, CV_WINDOW_AUTOSIZE);
+//
+//	cvCreateTrackbar("Radius", windowName, &radius, radius_max, myTrackbarRadius);
+//	cvCreateTrackbar("Iteration", windowName, &iterations, iterations_max, myTrackbarIterations);
+//
+//	while (true)
+//	{
+//		// показываем картинку
+//		cvShowImage(windowName, image);
+//
+//		// создаем ядро
+//		IplConvKernel* Kern = cvCreateStructuringElementEx(radius * 2 + 1, radius * 2 + 1, radius, radius, CV_SHAPE_ELLIPSE);
+//
+//		// картинка для промежуточного хранения результатов
+//		IplImage* Temp = 0;
+//		Temp = cvCreateImage(cvSize(image->width, image->height), IPL_DEPTH_8U, 1);
+//		// выполняем преобразование
+//		cvMorphologyEx(image, dst, Temp, Kern, CV_MOP_OPEN, iterations);
+//
+//		// показываем результат
+//		cvShowImage(morpholohyWindow, dst);
+//
+//		cvReleaseStructuringElement(&Kern);
+//		cvReleaseImage(&Temp);
+//
+//		char c = cvWaitKey(33);
+//		if (c == 27) break;
+//	}
+//
+//	cvReleaseImage(&image);
+//	cvReleaseImage(&dst);
+//	// удаляем окна
+//	cvDestroyAllWindows();
+//	return 0;
+//}
+
+////--------------------------------------
+
+//#include <cv.h>
+//#include <highgui.h>
+//#include <stdlib.h>
+//#include <stdio.h>
+//
+//IplImage* image = 0;
+//IplImage* open = 0;
+//IplImage* close = 0;
+//IplImage* gradient = 0;
+//IplImage* tophat = 0;
+//IplImage* blackhat = 0;
+//
+//int radius = 1;
+//int radius_max = 10;
+//
+////
+//// функция-обработчик ползунка - 
+//// радиус ядра
+//void myTrackbarRadius(int pos) { radius = pos; }
+//
+//int iterations = 1;
+//int iterations_max = 10;
+//
+////
+//// функция-обработчик ползунка - 
+//// число итераций
+//void myTrabarIterations(int pos) { iterations = pos; }
+//
+//int main(int argc, char* argv[])
+//{
+//	// имя картинки задется первым параметром
+//	const char* filename = argc == 2 ? argv[1] : "cat.jpg";
+//	char windowName[] = "origin";
+//	char MopOpen[] = "OpenMop";
+//	char MopClose[] = "CloseMop";
+//	char MopGradient[] = "GradientMop";
+//	char MopTophat[] = "TophatMop";
+//	char MopBlackhat[] = "BlackhatMop";
+//
+//	// получаем картинку
+//	image = cvLoadImage(filename, 1);
+//	// клонируем картинку
+//	open = cvCloneImage(image);
+//	close = cvCloneImage(image);
+//	gradient = cvCloneImage(image);
+//	tophat = cvCloneImage(image);
+//	blackhat = cvCloneImage(image);
+//
+//	printf("[i] image: %s\n", filename);
+//	assert(image != 0);
+//
+//	// окно для отображения картинки
+//	cvNamedWindow(windowName, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(MopOpen, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(MopClose, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(MopGradient, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(MopTophat, CV_WINDOW_AUTOSIZE);
+//	cvNamedWindow(MopBlackhat, CV_WINDOW_AUTOSIZE);
+//
+//	cvCreateTrackbar("Radius", windowName, &radius, radius_max, myTrackbarRadius);
+//	cvCreateTrackbar("Iteration", windowName, &iterations, iterations_max, myTrabarIterations);
+//
+//	while (true)
+//	{
+//		// показываем картинку
+//		cvShowImage(windowName, image);
+//
+//		// создаем ядро
+//		IplConvKernel* Kern = cvCreateStructuringElementEx(radius * 2 + 1, radius * 2 + 1, radius, radius, CV_SHAPE_ELLIPSE);
+//
+//		// картинка для промежуточного хранения результатов
+//		IplImage* Temp = 0;
+//		Temp = cvCreateImage(cvSize(image->width, image->height), IPL_DEPTH_8U, 1);
+//		// выполняем преобразование
+//		cvMorphologyEx(image, open, Temp, Kern, CV_MOP_OPEN, iterations);
+//		cvMorphologyEx(image, close, Temp, Kern, CV_MOP_CLOSE, iterations);
+//		cvMorphologyEx(image, gradient, Temp, Kern, CV_MOP_GRADIENT, iterations);
+//		cvMorphologyEx(image, tophat, Temp, Kern, CV_MOP_TOPHAT, iterations);
+//		cvMorphologyEx(image, blackhat, Temp, Kern, CV_MOP_BLACKHAT, iterations);
+//
+//		// показываем результат
+//		cvShowImage(MopOpen, open);
+//		cvShowImage(MopClose, close);
+//		cvShowImage(MopGradient, gradient);
+//		cvShowImage(MopTophat, tophat);
+//		cvShowImage(MopBlackhat, blackhat);
+//
+//		cvReleaseStructuringElement(&Kern);
+//		cvReleaseImage(&Temp);
+//
+//		char c = cvWaitKey(33);
+//		if (c == 27) break;
+//	}
+//
+//	// освобождаем ресурсы
+//	cvReleaseImage(&image);
+//	cvReleaseImage(&open);
+//	cvReleaseImage(&close);
+//	cvReleaseImage(&gradient);
+//	cvReleaseImage(&tophat);
+//	cvReleaseImage(&blackhat);
+//	// удаляем окна
+//	cvDestroyAllWindows();
+//	return 0;
+//}
+
+////--------------------------------------
+
 #include <cv.h>
 #include <highgui.h>
 #include <stdlib.h>
 #include <stdio.h>
 
-IplImage* image = 0;
-IplImage* dst = 0;
+// заливка области картинки цветом
+void fill(IplImage* src, CvPoint seed, CvScalar color = CV_RGB(255, 0, 0))
+{
+	assert(src);
 
-int radius = 1;
-int radius_max = 10;
+	CvConnectedComp comp;
 
+	cvFloodFill(src, seed, color,
+		cvScalarAll(10),
+		cvScalarAll(10),
+		&comp,
+		CV_FLOODFILL_FIXED_RANGE + 8,
+		0);
 
+	// покажем площадь заливки
+	printf("[filled area] %.2f\n", comp.area);
+}
+
+// обработчик событий от мышки
+void myMouseCallBack(int event, int x, int y, int flags, void* param)
+{
+	IplImage* img = (IplImage*)param;
+
+	switch (event)
+	{
+		case CV_EVENT_MOUSEMOVE:
+			break;
+		case CV_EVENT_LBUTTONDBLCLK:
+			printf("%d x %d\n", x, y);
+
+			// вызываем нашу функцию заливки
+			fill(img, cvPoint(x, y));
+			break;
+
+		case CV_EVENT_LBUTTONUP:
+			break;
+	}
+}
+
+int main(int argc, char* argv[])
+{
+	
+}
 ////--------------------------------------
