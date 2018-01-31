@@ -955,52 +955,89 @@
 
 ////--------------------------------------
 
-#include <cv.h>
-#include <highgui.h>
-#include <stdlib.h>
-#include <stdio.h>
+//#include <cv.h>
+//#include <highgui.h>
+//#include <stdlib.h>
+//#include <stdio.h>
+//
+//// заливка области картинки цветом
+//void fill(IplImage* src, CvPoint seed, CvScalar color = CV_RGB(255, 0, 0))
+//{
+//	assert(src);
+//
+//	CvConnectedComp comp;
+//
+//	cvFloodFill(src, seed, color,
+//		cvScalarAll(10),
+//		cvScalarAll(10),
+//		&comp,
+//		CV_FLOODFILL_FIXED_RANGE + 8,
+//		0);
+//
+//	// покажем площадь заливки
+//	printf("[filled area] %.2f\n", comp.area);
+//}
+//
+//// обработчик событий от мышки
+//void myMouseCallBack(int event, int x, int y, int flags, void* param)
+//{
+//	IplImage* img = (IplImage*)param;
+//
+//	switch (event)
+//	{
+//		case CV_EVENT_MOUSEMOVE:
+//			break;
+//		case CV_EVENT_LBUTTONDBLCLK:
+//			printf("%d x %d\n", x, y);
+//
+//			// вызываем нашу функцию заливки
+//			fill(img, cvPoint(x, y));
+//			break;
+//
+//		case CV_EVENT_LBUTTONUP:
+//			break;
+//	}
+//}
+//
+//int main(int argc, char* argv[])
+//{
+//	IplImage *src = 0, *dst = 0;
+//
+//	//имя картинки задается первым параметром
+//	const char* filename = argc >= 2 ? argv[1] : "cat.jpg";
+//	char windowName[] = "origin";
+//
+//	// получаем картинку
+//	src = cvLoadImage(filename, 1);
+//
+//	printf("[i] image: %s\n", filename);
+//	assert(src != 0);
+//
+//	// покажем изображение
+//	cvNamedWindow(windowName, 1);
+//
+//	// вешаем обработчик мыши
+//	cvSetMouseCallback(windowName, myMouseCallBack, (void*)src);
+//
+//	while (true)
+//	{
+//		// показываем картинку
+//		cvShowImage(windowName, src);
+//
+//		char c = cvWaitKey(33);
+//		if (c == 27)
+//			break;
+//	}
+//
+//	// освобождаем ресурсы
+//	cvReleaseImage(&src);
+//	cvReleaseImage(&dst);
+//	// удаляем окна
+//	cvDestroyWindow(windowName);
+//	return 0;
+//}
+////--------------------------------------
 
-// заливка области картинки цветом
-void fill(IplImage* src, CvPoint seed, CvScalar color = CV_RGB(255, 0, 0))
-{
-	assert(src);
 
-	CvConnectedComp comp;
 
-	cvFloodFill(src, seed, color,
-		cvScalarAll(10),
-		cvScalarAll(10),
-		&comp,
-		CV_FLOODFILL_FIXED_RANGE + 8,
-		0);
-
-	// покажем площадь заливки
-	printf("[filled area] %.2f\n", comp.area);
-}
-
-// обработчик событий от мышки
-void myMouseCallBack(int event, int x, int y, int flags, void* param)
-{
-	IplImage* img = (IplImage*)param;
-
-	switch (event)
-	{
-		case CV_EVENT_MOUSEMOVE:
-			break;
-		case CV_EVENT_LBUTTONDBLCLK:
-			printf("%d x %d\n", x, y);
-
-			// вызываем нашу функцию заливки
-			fill(img, cvPoint(x, y));
-			break;
-
-		case CV_EVENT_LBUTTONUP:
-			break;
-	}
-}
-
-int main(int argc, char* argv[])
-{
-	
-}
 ////--------------------------------------
